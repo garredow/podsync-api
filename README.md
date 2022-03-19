@@ -1,3 +1,3 @@
-# Foxcasts Cloud API
+# Foxcasts API
 
-[![CircleCI](https://circleci.com/gh/garredow/foxcasts-cloud-api/tree/main.svg?style=svg)](https://circleci.com/gh/garredow/foxcasts-cloud-api/tree/main)
+GraphQL API for podcast apps.
