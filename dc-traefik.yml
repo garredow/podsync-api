@@ -1,0 +1,49 @@
+version: '3'
+
+services:
+  traefik:
+    # Setting container_name disables running multinple instances of this service
+    container_name: traefik
+    image: traefik:v2.1
+    command:
+      - --entrypoints.web.address=:80
+      - --entrypoints.websecure.address=:443
+      - --entryPoints.web.http.redirections.entryPoint.to=websecure
+      - --entryPoints.web.http.redirections.entryPoint.scheme=https
+      - --log.level=${LOG_LEVEL}
+      - --providers.docker
+      - --providers.docker.watch=true
+      - --providers.docker.network=${NETWORK}
+      - --providers.docker.exposedbydefault=false
+      - --providers.docker.endpoint=unix:///var/run/docker.sock
+      - --api
+    ports:
+      - '80:80'
+      - '443:443'
+    networks:
+      - net
+    volumes:
+      - '${CERT_PATH}:/certs'
+      - '${CONFIG_PATH}:/etc/traefik'
+      - '/var/run/docker.sock:/var/run/docker.sock:ro'
+    labels:
+      # set this lebel to `false` and the rest is history
+      traefik.enable: true
+      # middleware redirect
+      traefik.http.middlewares.redirect-to-https.redirectscheme.scheme: https
+
+      # redirection HTTP to HTTPS
+      traefik.http.routers.http_catchall.rule: hostregexp(`{host:.+}`)
+      traefik.http.routers.http_catchall.entrypoints: web
+      traefik.http.routers.http_catchall.middlewares: redirect-to-https
+
+      # dashboard
+      traefik.http.routers.traefik.rule: Host(`${DASHBOARD_HOST}`)
+      traefik.http.routers.traefik.entrypoints: websecure
+      traefik.http.routers.traefik.service: api@internal
+      traefik.http.routers.traefik.tls: true
+
+networks:
+  net:
+    external: false
+    name: ${NETWORK}
