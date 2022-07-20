@@ -290,7 +290,8 @@ export type Category = {
 export type User = {
   __typename?: 'User';
   id: Scalars['String'];
-  name?: Maybe<Scalars['String']>;
+  firstName?: Maybe<Scalars['String']>;
+  lastName?: Maybe<Scalars['String']>;
   email?: Maybe<Scalars['String']>;
   avatarUrl?: Maybe<Scalars['String']>;
   subscriptions: Array<Podcast>;
@@ -933,7 +934,8 @@ export type UserResolvers<
   ParentType extends ResolversParentTypes['User'] = ResolversParentTypes['User']
 > = {
   id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  firstName?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  lastName?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   email?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   avatarUrl?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   subscriptions?: Resolver<Array<ResolversTypes['Podcast']>, ParentType, ContextType>;
@@ -1103,7 +1105,8 @@ export interface Loaders<
 
   User?: {
     id?: LoaderResolver<Scalars['String'], User, {}, TContext>;
-    name?: LoaderResolver<Maybe<Scalars['String']>, User, {}, TContext>;
+    firstName?: LoaderResolver<Maybe<Scalars['String']>, User, {}, TContext>;
+    lastName?: LoaderResolver<Maybe<Scalars['String']>, User, {}, TContext>;
     email?: LoaderResolver<Maybe<Scalars['String']>, User, {}, TContext>;
     avatarUrl?: LoaderResolver<Maybe<Scalars['String']>, User, {}, TContext>;
     subscriptions?: LoaderResolver<Array<Podcast>, User, {}, TContext>;

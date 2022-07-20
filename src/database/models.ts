@@ -40,7 +40,8 @@ export type DbPodcast = {
 
 export type DbUser = {
   id: string;
-  name?: string;
+  firstName?: string;
+  lastName?: string;
   email?: string;
   avatar_url?: string;
   created_at: Date;
