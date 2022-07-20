@@ -152,7 +152,7 @@ export class Data {
       return true;
     },
     checkIfSubscribed: async (userId: string, podcastId: number): Promise<boolean> => {
-      const sub = this.db.getSubscription(userId, podcastId);
+      const sub = await this.db.getSubscription(userId, podcastId);
       return !!sub;
     },
   };
