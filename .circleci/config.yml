@@ -56,11 +56,11 @@ jobs:
             if [[ -z "${NEW_VERSION}" ]]; then
               echo "No new version. Skip docker build."
             else
-              echo "Building garredow/foxcasts-api:${NEW_VERSION}"
+              echo "Building garredow/podsync-api:${NEW_VERSION}"
               echo $(cat package.json)
               echo $DOCKER_TOKEN | docker login -u $DOCKER_USERNAME --password-stdin
-              docker build -t garredow/foxcasts-api:$NEW_VERSION .
-              docker push garredow/foxcasts-api:$NEW_VERSION
+              docker build -t garredow/podsync-api:$NEW_VERSION .
+              docker push garredow/podsync-api:$NEW_VERSION
             fi
   deploy:
     executor: builder
@@ -77,7 +77,7 @@ jobs:
               echo "No new version. Skip deploy."
             else
               echo "Deploying v${NEW_VERSION}"
-              ssh -oStrictHostKeyChecking=no -v $DO_USER@$DO_IP_ADDRESS "./apps/foxcasts-api/install.sh garredow/foxcasts-api:${NEW_VERSION}"
+              ssh -oStrictHostKeyChecking=no -v $DO_USER@$DO_IP_ADDRESS "./apps/podsync-api/install.sh garredow/podsync-api:${NEW_VERSION}"
             fi
 
 workflows:
@@ -104,7 +104,7 @@ workflows:
               only:
                 - main
       - deploy:
-          context: digital-ocean-2
+          context: digital-ocean
           requires:
             - build-docker
           filters:

@@ -43,7 +43,7 @@ declare module 'mercurius' {
 
 const logger: LoggerOptions = {
   enabled: config.logger.enabled,
-  name: 'foxcasts-cloud-api',
+  name: 'podsync-api',
   level: config.logger.level,
   formatters: {
     level: (label: string) => ({ level: label }),

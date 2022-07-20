@@ -7,7 +7,7 @@ if [[ -z "${DOCKER_IMAGE}" ]]; then
     exit 1
 fi
 
-cd ~/apps/foxcasts-cloud-api
+cd ~/apps/podsync-api
 
 docker-compose down && docker-compose up -d
 
